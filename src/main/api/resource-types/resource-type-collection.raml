@@ -1,0 +1,130 @@
+#%RAML 1.0 ResourceType
+get:
+  responses: 
+    200:
+      body: 
+        application/json:
+          type: <<response>>
+          example: <<responseExample>>
+    500:
+      body:
+        application/json:
+          type: <<errorObject>>
+          example: |
+            {
+              "message": "An error occurred while trying to proccess request"
+            }
+    400:
+      body:
+        application/json:
+          type: <<errorObject>>
+          example: |
+            {
+              "message": "Bad request or bad parameters in request"
+            }
+    401:
+      body:
+        application/json:
+          type: <<errorObject>>
+          example: |
+            {
+              "message": "Unautorized to access to this request"
+            }
+patch:
+  body: 
+    application/json:
+      type: <<resource>>
+      example: <<resourceExample>>
+  responses: 
+    201:
+      body: 
+        application/json:
+          type: <<successfulResponse>>
+          example: <<successfulResponseExample>>
+    500:
+      body:
+        application/json:
+          type: <<errorObject>>
+          example: |
+            {
+              "message": "An error occurred while trying to proccess request"
+            }
+    400:
+      body:
+        application/json:
+          type: <<errorObject>>
+          example: |
+            {
+              "message": "Bad request or bad parameters in request"
+            }
+    404:
+      body:
+        application/json:
+          type: <<errorObject>>
+          example: |
+            {
+              "message": "Resource not found"
+            }
+    401:
+      body:
+        application/json:
+          type: <<errorObject>>
+          example: |
+            {
+              "message": "Unautorized to access to this request"
+            }
+    304:
+      body: 
+        application/json:
+          type: <<errorObject>>
+          example: |
+            {
+              "message": "Not Modified"
+            }
+delete:
+  responses: 
+    200:
+      body: 
+        application/json:
+          type: <<successfulResponse>>
+          example: <<successfulResponseExample>>
+    500:
+      body:
+        application/json:
+          type: <<errorObject>>
+          example: |
+            {
+              "message": "An error occurred while trying to proccess request"
+            }
+    400:
+      body:
+        application/json:
+          type: <<errorObject>>
+          example: |
+            {
+              "message": "Bad request or bad parameters in request"
+            }
+    404:
+      body:
+        application/json:
+          type: <<errorObject>>
+          example: |
+            {
+              "message": "Resource not found"
+            }
+    401:
+      body:
+        application/json:
+          type: <<errorObject>>
+          example: |
+            {
+              "message": "Unautorized to access to this request"
+            }
+    304:
+      body: 
+        application/json:
+          type: <<errorObject>>
+          example: |
+            {
+              "message": "Not Modified"
+            }

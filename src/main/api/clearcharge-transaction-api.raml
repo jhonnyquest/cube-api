@@ -1,0 +1,81 @@
+#%RAML 1.0
+title: clearcharge_transaction_api
+version: 1.0
+
+traits:
+  pageable: !include traits/trait-pageable.raml
+  traceable: !include traits/trait-traceable.raml
+
+uses: 
+  transactionTypes: libraries/library-transaction.raml
+  common: libraries/library-common.raml
+  
+resourceTypes: 
+  collection: !include resource-types/resource-type-collection.raml
+  post-collection: !include resource-types/resource-type-post-collection.raml
+  get-collection: !include resource-types/resource-type-get-collection.raml
+      
+/transactions:
+  description: Management of a pool of transactions
+  is: [traceable]
+  type: { 
+    post-collection: {  
+      resource: transactionTypes.transaction,
+      resourceExample: !include examples/transaction.json, 
+      successfulResponse: common.successResponse, 
+      successfulResponseExample: !include examples/simple-response.json,
+      errorObject: common.error
+    }
+  }
+/transactions/{description}:
+  description: Management of a single transaction
+  is: [traceable]
+  uriParameters: 
+    description:
+      type: string
+      required: true
+      description: Universal identifier for a single transaction
+      example: 672c58deab2893061e4d2e5482ba70ffb427fd3470af9c6f7711f787f1eb08e9
+  type: { 
+    collection: { 
+      resource: transactionTypes.transaction,
+      resourceExample: !include examples/transaction.json,
+      response: transactionTypes.transaction,
+      successfulResponse: common.successResponse,
+      successfulResponseExample: !include examples/simple-response.json, 
+      responseExample: !include examples/transaction.json, 
+      errorObject: common.error
+    }
+  }
+/transactions/{description}/get_places:
+  description: Comand to retrieve a list of pleces (only id) associated to a single transaction
+  is: [traceable, pageable]
+  uriParameters: 
+    description:
+      type: string
+      required: true
+      description: Universal identifier for a single transaction
+      example: 672c58deab2893061e4d2e5482ba70ffb427fd3470af9c6f7711f787f1eb08e9
+  type: { 
+    get-collection: { 
+      response: transactionTypes.places,
+      responseExample: !include examples/places.json, 
+      errorObject: common.error
+    }
+  }
+/transactions/{description}/get_titles:
+  description: Comand to retrieve a list of pleces (only id) associated to a single transaction
+  is: [traceable, pageable]
+  uriParameters: 
+    description:
+      type: string
+      required: true
+      description: Universal identifier for a single transaction
+      example: 672c58deab2893061e4d2e5482ba70ffb427fd3470af9c6f7711f787f1eb08e9
+  type: { 
+    get-collection: { 
+      response: transactionTypes.titles,
+      responseExample: !include examples/titles.json, 
+      errorObject: common.error
+    }
+  }

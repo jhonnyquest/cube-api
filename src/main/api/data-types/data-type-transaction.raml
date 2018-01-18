@@ -1,0 +1,15 @@
+#%RAML 1.0 DataType
+description: "Whole information related with a single transaction"
+properties:
+  description:
+    type: string
+    description: Unique identifier for transaction
+    example: THE GLADSTONE HOUSE LTD TORONTO ON
+  score:
+    type: number
+    description: Score calculated for a specific transaction related with a place
+    example: 92.45
+  place_id:
+    type: string
+    description: "Universal identifier of place related with a given transaction"
+    example: 672c58deab2893061e4d2e5482ba70ffb427fd3470af9c6f7711f787f1eb08e9
