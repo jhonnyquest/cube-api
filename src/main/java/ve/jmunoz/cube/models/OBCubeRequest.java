@@ -2,16 +2,16 @@ package ve.jmunoz.cube.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class OBCube {
+public class OBCubeRequest {
 	private Integer testCases;
 	private Integer dimension;
 	private Integer commands;
 
-	public OBCube() {
+	public OBCubeRequest() {
 		super();
 	}
 
-	@JsonProperty("testCases")
+	@JsonProperty("test_cases")
 	public Integer getTestCases() {
 		return testCases;
 	}
