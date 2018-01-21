@@ -2,6 +2,14 @@ package ve.jmunoz.cube.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * <h1>Class OBCoordinate</h1><br>
+ * Object business model to manage coordinates values to populate cube<br>
+ * 
+ * @author jmunoz
+ * @since 2018-01-21
+ * @version 0.0.1
+ */
 public class OBCoordinate {
 
 	private int x;

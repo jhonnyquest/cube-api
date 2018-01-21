@@ -2,12 +2,20 @@ package ve.jmunoz.cube.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class OBCubeRequest {
+/**
+ * <h1>Class CubeRequest</h1><br>
+ * Support object model to manage basic data cube request <br>
+ * 
+ * @author jmunoz
+ * @since 2018-01-21
+ * @version 0.0.1
+ */
+public class CubeRequest {
 	private Integer testCases;
 	private Integer dimension;
 	private Integer commands;
 
-	public OBCubeRequest() {
+	public CubeRequest() {
 		super();
 	}
 

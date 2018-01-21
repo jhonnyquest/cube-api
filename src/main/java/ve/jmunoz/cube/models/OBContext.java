@@ -4,9 +4,17 @@ import java.util.Arrays;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * <h1>Class OBContext</h1><br>
+ * Object business model to manage user cube context<br>
+ * 
+ * @author jmunoz
+ * @since 2018-01-21
+ * @version 0.0.1
+ */
 public class OBContext {
 	
-	private OBCubeRequest initData;
+	private CubeRequest initData;
 	private float[][][] cube;
 	private int remainingTestCases;
 	private int remainingCommands;
@@ -16,11 +24,11 @@ public class OBContext {
 	}
 
 	@JsonProperty("init_data")
-	public OBCubeRequest getInitData() {
+	public CubeRequest getInitData() {
 		return initData;
 	}
 
-	public void setInitData(OBCubeRequest initData) {
+	public void setInitData(CubeRequest initData) {
 		this.initData = initData;
 	}
 
