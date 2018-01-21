@@ -2,6 +2,14 @@ package ve.jmunoz.cube.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * <h1>Class QueryResponse</h1><br>
+ * Support object model to manage cube query response <br>
+ * 
+ * @author jmunoz
+ * @since 2018-01-21
+ * @version 0.0.1
+ */
 public class QueryResponse {
 	
 	private boolean success;

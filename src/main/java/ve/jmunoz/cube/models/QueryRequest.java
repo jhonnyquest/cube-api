@@ -2,7 +2,15 @@ package ve.jmunoz.cube.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class OBqueryRequest {
+/**
+ * <h1>Class CubeRequest</h1><br>
+ * Support object model to manage cube query request <br>
+ * 
+ * @author jmunoz
+ * @since 2018-01-21
+ * @version 0.0.1
+ */
+public class QueryRequest {
 	
 	private int x1;
 	private int y1;
@@ -11,7 +19,7 @@ public class OBqueryRequest {
 	private int y2;
 	private int z2;
 	
-	public OBqueryRequest(){
+	public QueryRequest(){
 		super();
 	}
 

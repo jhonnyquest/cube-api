@@ -10,16 +10,24 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
-/***
+/**
+ * <h1>Class WebInitializer</h1><br>
+ * Web initializer initiate all basic parameters from web services application<br>
  * 
- * configuration class used to  create and configure  the servlet container 
- * 
- * @author Jhonny Munoz
- * @version 1.0
+ * @author jmunoz
+ * @since 2018-01-21
+ * @version 0.0.1
  */
-
 public class WebInitializer implements WebApplicationInitializer {
 	
+	/**
+	 * <h2>Initialize web dispatcher - onStartup</h2> Method that initialize the webserver dispatcher when
+	 * application starts
+	 * 
+	 * @param ServletContext servletContext: Servlet context configuration
+	 * @since 2018-01-21
+	 * @author jmunoz
+	 */
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		WebApplicationContext context = getContext();
 		servletContext.addListener(new ContextLoaderListener(context));
@@ -29,6 +37,13 @@ public class WebInitializer implements WebApplicationInitializer {
 		dispatcher.addMapping("/*");		
 	}
 
+	/**
+	 * <h2>Get context configuration - getContext</h2> Method that retrieve the application context initialized
+	 * 
+	 * @return AnnotationConfigWebApplicationContext: Context of the web application.
+	 * @since 2018-01-21
+	 * @author jmunoz
+	 */
 	private AnnotationConfigWebApplicationContext getContext() {
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
 		context.setConfigLocation("ve.jmunoz.cube");
