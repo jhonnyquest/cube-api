@@ -59,6 +59,9 @@ public class OBCoordinate {
 
 	@Override
 	public String toString() {
-		return "OBCoordinate [x=" + x + ", y=" + y + ", z=" + z + ", value=" + value + "]";
+		return "OBCoordinate [x=" + x + ", "
+				+ "y=" + y + ", "
+				+ "z=" + z + ", "
+				+ "value=" + value + "]";
 	}
 }

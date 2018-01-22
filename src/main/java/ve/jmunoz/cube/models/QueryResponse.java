@@ -69,7 +69,10 @@ public class QueryResponse {
 
 	@Override
 	public String toString() {
-		return "QueryResponse [success=" + success + ", result=" + result + ", message=" + message
-				+ ", remainingCommands=" + remainingCommands + ", remainingTestCases=" + remainingTestCases + "]";
+		return "QueryResponse [success=" + success + ", "
+				+ "result=" + result + ", "
+				+ "message=" + message + ", "
+				+ "remainingCommands=" + remainingCommands + ", "
+				+ "remainingTestCases=" + remainingTestCases + "]";
 	}
 }

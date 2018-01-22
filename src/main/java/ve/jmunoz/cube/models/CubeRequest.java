@@ -48,6 +48,8 @@ public class CubeRequest {
 
 	@Override
 	public String toString() {
-		return "OBCube [testCases=" + testCases + ", dimension=" + dimension + ", commands=" + commands + "]";
+		return "OBCube [testCases=" + testCases + ", "
+				+ "dimension=" + dimension + ", "
+				+ "commands=" + commands + "]";
 	}
 }

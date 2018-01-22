@@ -2,6 +2,8 @@ package ve.jmunoz.cube.service.impl;
 
 import java.io.IOException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import ve.jmunoz.cube.exceptions.ExceptionHandler;
@@ -42,7 +44,8 @@ import ve.jmunoz.cube.utils.TransformationHelper;
 public class CubeManagerImpl implements CubeManager{
 	
 	AppConfig config;
-
+	private static final Logger LOGGER = LogManager.getLogger(CubeManagerImpl.class);
+	
 	public CubeManagerImpl(){
 		
 	}
@@ -55,9 +58,11 @@ public class CubeManagerImpl implements CubeManager{
 	 * @author jmunoz
 	 */
 	public SimpleResponse test(String message) {
+		LOGGER.info("Starting to process test");
 		SimpleResponse response = new SimpleResponse();
 		response.setSuccess(true);
 		response.setMessage("message from API: " + message);
+		LOGGER.info("Test processing finished");
 		return response;
 	}
 	
@@ -73,6 +78,7 @@ public class CubeManagerImpl implements CubeManager{
 	 * @author jmunoz
 	 */
 	public SimpleResponse setTestCasesRequest(int testCases, String token){
+		LOGGER.info("Starting to set cube test cases");
 		/**
 		 * - Initialize main response variable and persist test cases
 		 */
@@ -99,7 +105,7 @@ public class CubeManagerImpl implements CubeManager{
 		} catch (IOException e) {
 			throw new ExceptionHandler(AppConfig.WRITE_CONTENT_EXCEPTION_MESSAGE);
 		}
-		
+		LOGGER.info("Stting test cases finished");
 		return response;
 	}
 	
@@ -115,7 +121,7 @@ public class CubeManagerImpl implements CubeManager{
 	 * @author jmunoz
 	 */
 	public SimpleResponse createCubeRequest(CubeRequest newCube, String token){
-		
+		LOGGER.info("Starting to create new cube");
 		/**
 		 * - Initialize main response variable and test cases
 		 */
@@ -155,6 +161,7 @@ public class CubeManagerImpl implements CubeManager{
 		 */
 				response.setSuccess(true);
 				response.setMessage(AppConfig.WRITE_CONTENT_SUCCESS_MESSAGE);
+				LOGGER.info("Cube creation finished");
 				return response;
 			}else
 				return cubeValidated;
@@ -175,7 +182,7 @@ public class CubeManagerImpl implements CubeManager{
 	 * @author jmunoz
 	 */
 	public UpdateResponse updateCubeRequest(OBCoordinate coordinate, String token){
-		
+		LOGGER.info("Starting to update cube value");
 		/**
 		 * - Initialize main variables: response to return operation response and context
 		 *   to get stored context data.
@@ -218,12 +225,15 @@ public class CubeManagerImpl implements CubeManager{
 		 *   then proceed to store the value in given coordinate, 
 		 *   else return out of range coordinate message.
 		 */
-			if (validateCoordinateValue(coordinate, context.getInitData().getDimension()).isSuccess()){
+			if (validateCoordinateValue(
+					coordinate, 
+					context.getInitData().getDimension()).isSuccess()){
 				
 		/**
 		 * - Set cube value into given coordinates.
 		 */
-				cube[coordinate.getX() - 1][coordinate.getY() - 1][coordinate.getZ() - 1] = coordinate.getValue();
+				cube[coordinate.getX() - 1][coordinate.getY() - 1][coordinate.getZ() - 1] 
+						= coordinate.getValue();
 				context.setCube(cube);
 		
 		/**
@@ -256,7 +266,7 @@ public class CubeManagerImpl implements CubeManager{
 			
 		}else
 			response.setMessage(AppConfig.NO_MORE_TEST_CASES_MESSAGE);
-		
+		LOGGER.info("Update cube value finished");
 		return response;
 	}
 	
@@ -272,7 +282,7 @@ public class CubeManagerImpl implements CubeManager{
 	 * @author jmunoz
 	 */
 	public QueryResponse queryCubeRequest(QueryRequest queryRequest, String token){
-		
+		LOGGER.info("Starting to set cube test cases");
 		/**
 		 * - Initialize main variables: response to return operation response and context
 		 *   to get stored context data.
@@ -318,7 +328,7 @@ public class CubeManagerImpl implements CubeManager{
 				context.setRemainingCommands(context.getRemainingCommands() - 1);
 			
 		/**
-		 * Store context data updated with new cube data and command and/or test cases updated
+		 * - Store context data updated with new cube data and command and/or test cases updated
 		 */
 				try {
 					PersistHelper.writeContent(
@@ -340,7 +350,7 @@ public class CubeManagerImpl implements CubeManager{
 			}
 		}else
 			response.setMessage(AppConfig.NO_MORE_TEST_CASES_MESSAGE);
-		
+		LOGGER.info("Query cube summation finished");
 		return response;
 	}
 
@@ -354,14 +364,18 @@ public class CubeManagerImpl implements CubeManager{
 	 * @author jmunoz
 	 */
 	private SimpleResponse validateCube(CubeRequest cube){
-		
+		LOGGER.info("Starting to validate cube");
 		/**
 		 * - Populate message to return initial cube data validation response. 
 		 */
 		String message = "";
-		message += (AppConfig.MIN_COMMANDS_VALUE <= cube.getCommands() && cube.getCommands() <= AppConfig.MAX_COMMANDS_VALUE) 
+		message += (
+				AppConfig.MIN_COMMANDS_VALUE <= cube.getCommands() 
+				&& cube.getCommands() <= AppConfig.MAX_COMMANDS_VALUE) 
 				? "" : AppConfig.OUT_RANGE_COMMANDS_MESSAGE;
-		message += (AppConfig.MIN_DIMENSION_VALUE <= cube.getDimension() && cube.getDimension() <= AppConfig.MAX_DIMENSION_VALUE) 
+		message += (
+				AppConfig.MIN_DIMENSION_VALUE <= cube.getDimension() 
+				&& cube.getDimension() <= AppConfig.MAX_DIMENSION_VALUE) 
 				? "" : AppConfig.OUT_RANGE_DIMENSION_MESSAGE;
 		
 		/**
@@ -371,6 +385,7 @@ public class CubeManagerImpl implements CubeManager{
 		boolean success = (message.equals("")) ? true : false;
 		response.setSuccess(success);
 		response.setMessage(message);
+		LOGGER.info("Validate cube metadata finished");
 		return response;
 	}
 	
@@ -384,12 +399,14 @@ public class CubeManagerImpl implements CubeManager{
 	 * @author jmunoz
 	 */
 	private SimpleResponse validateTestCases(int testCases){
-		
+		LOGGER.info("Starting to validate test cases");
 		/**
 		 * - Populate message to return test cases validation response. 
 		 */
 		String message = "";
-		message += (AppConfig.MIN_TEST_CASES_VALUE <= testCases && testCases <= AppConfig.MAX_TEST_CASES_VALUE) 
+		message += (
+				AppConfig.MIN_TEST_CASES_VALUE <= testCases 
+				&& testCases <= AppConfig.MAX_TEST_CASES_VALUE) 
 				? "" : AppConfig.OUT_RANGE_TEST_CASES_MESSAGE;
 		
 		/**
@@ -399,6 +416,7 @@ public class CubeManagerImpl implements CubeManager{
 		boolean success = (message.equals("")) ? true : false;
 		response.setSuccess(success);
 		response.setMessage(message);
+		LOGGER.info("Validate test cases finished");
 		return response;
 	}
 	
@@ -412,15 +430,18 @@ public class CubeManagerImpl implements CubeManager{
 	 * @author jmunoz
 	 */
 	private SimpleResponse validateCoordinateValue(OBCoordinate coordinate, int dimension ){
-		
+		LOGGER.info("Starting to validate coordinates and value");
 		/**
 		 * - Populate message to return coordinate value validation response. Note that coordinates 
 		 *   are given starting in 1 but arrays manage ranges starting in 0. 
 		 */
 		String message = "";
-		message += ( AppConfig.MIN_CUBE_VALUE <= coordinate.getValue() && coordinate.getValue() <= AppConfig.MAX_CUBE_VALUE) 
+		message += ( 
+				AppConfig.MIN_CUBE_VALUE <= coordinate.getValue() 
+				&& coordinate.getValue() <= AppConfig.MAX_CUBE_VALUE) 
 				? "" : AppConfig.OUT_RANGE_VALUE_MESSAGE;
-		message += (coordinate.getX()  > dimension || coordinate.getY() > dimension || coordinate.getZ() > dimension
+		message += (
+				coordinate.getX()  > dimension || coordinate.getY() > dimension || coordinate.getZ() > dimension
 				|| coordinate.getX() <= 0 || coordinate.getY() <= 0 || coordinate.getX() <= 0) 
 				? AppConfig.OUT_RANGE_COORDINATE_MESSAGE : "";
 		
@@ -431,6 +452,7 @@ public class CubeManagerImpl implements CubeManager{
 		boolean success = (message.equals("")) ? true : false;
 		response.setSuccess(success);
 		response.setMessage(message);
+		LOGGER.info("Validate coordinates finished");
 		return response;
 	}
 	
@@ -444,7 +466,7 @@ public class CubeManagerImpl implements CubeManager{
 	 * @author jmunoz
 	 */
 	private OBContext getContext(String token){
-		
+		LOGGER.info("Starting to retrieve cube context information");
 		/**
 		 * - Retrieve from persistence helper the current cube summation context.
 		 */
@@ -452,6 +474,7 @@ public class CubeManagerImpl implements CubeManager{
 			String content = PersistHelper.getContent(token);
 			OBContext context = new OBContext();
 			context = TransformationHelper.getObjectOfJson(content);
+			LOGGER.info("Get context finished");
 			return context;
 		} catch (IOException e) {
 			throw new ExceptionHandler(AppConfig.GET_CONTENT_EXCEPTION_MESSAGE);
@@ -469,7 +492,7 @@ public class CubeManagerImpl implements CubeManager{
 	 * @author jmunoz
 	 */
 	public SimpleResponse deleteCubeRequest(String token){
-		
+		LOGGER.info("Starting to delete cube");
 		/**
 		 * - Call persistence helper to delete the current cube summation context.
 		 */
@@ -478,6 +501,7 @@ public class CubeManagerImpl implements CubeManager{
 			PersistHelper.deleteContent(token);
 			response.setSuccess(true);
 			response.setMessage(AppConfig.DELETE_SUCCESS_MESSAGE);
+			LOGGER.info("Delete cube finished");
 			return response;
 		} catch (IOException e) {
 			throw new ExceptionHandler(AppConfig.DELETE_EXCEPTION_MESSAGE);
