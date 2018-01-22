@@ -39,6 +39,7 @@ public class SimpleResponse {
 
 	@Override
 	public String toString() {
-		return "SimpleResponse [success=" + success + ", message=" + message + "]";
+		return "SimpleResponse [success=" + success + ", "
+				+ "message=" + message + "]";
 	}
 }

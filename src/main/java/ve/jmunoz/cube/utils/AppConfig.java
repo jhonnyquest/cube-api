@@ -4,8 +4,10 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * <h1>Class Config</h1><br>
- * Configuration module config gets all configuration properties of the application <br>
- * TODO: For production deployments sensible data variables must be configured as system environment variables. 
+ * Configuration module config gets all configuration properties of the 
+ * application <br>
+ * TODO: For production deployments sensible data variables must be configured 
+ * as system environment variables. 
  * 
  * @author jmunoz
  * @since 2018-01-21
@@ -16,18 +18,30 @@ public class AppConfig {
 	/**
 	 * Messaging data variables configuration
 	 */
-	public static final String GET_CONTENT_EXCEPTION_MESSAGE = "There was an exception while trying to get user data. ";
-	public static final String WRITE_CONTENT_EXCEPTION_MESSAGE = "There was an exception while trying to store user data. ";
-	public static final String QUERY_SUCCESS_MESSAGE = "Cube summation calculation successful. ";
-	public static final String WRITE_CONTENT_SUCCESS_MESSAGE = "Data successfully stored. ";
-	public static final String DELETE_SUCCESS_MESSAGE = "Data successful deleted. ";
-	public static final String DELETE_EXCEPTION_MESSAGE = "There was an exception while trying to delete user context. ";
-	public static final String OUT_RANGE_COMMANDS_MESSAGE = "Commands out of range. ";
-	public static final String OUT_RANGE_DIMENSION_MESSAGE = "Matrix dimension out of range. ";
-	public static final String OUT_RANGE_TEST_CASES_MESSAGE = "Test cases out of range. ";
-	public static final String OUT_RANGE_VALUE_MESSAGE = "Value out of range. ";
-	public static final String OUT_RANGE_COORDINATE_MESSAGE = "Coordinate out of range";
-	public static final String NO_MORE_TEST_CASES_MESSAGE = "There are no more test cases";
+	public static final 
+		String GET_CONTENT_EXCEPTION_MESSAGE = "There was an exception while trying to get user data. ";
+	public static final 
+		String WRITE_CONTENT_EXCEPTION_MESSAGE = "There was an exception while trying to store user data. ";
+	public static final 
+		String QUERY_SUCCESS_MESSAGE = "Cube summation calculation successful. ";
+	public static final 
+		String WRITE_CONTENT_SUCCESS_MESSAGE = "Data successfully stored. ";
+	public static final 
+		String DELETE_SUCCESS_MESSAGE = "Data successful deleted. ";
+	public static final 
+		String DELETE_EXCEPTION_MESSAGE = "There was an exception while trying to delete user context. ";
+	public static final 
+		String OUT_RANGE_COMMANDS_MESSAGE = "Commands out of range. ";
+	public static final 
+		String OUT_RANGE_DIMENSION_MESSAGE = "Matrix dimension out of range. ";
+	public static final 
+		String OUT_RANGE_TEST_CASES_MESSAGE = "Test cases out of range. ";
+	public static final 
+		String OUT_RANGE_VALUE_MESSAGE = "Value out of range. ";
+	public static final 
+		String OUT_RANGE_COORDINATE_MESSAGE = "Coordinate out of range";
+	public static final 
+		String NO_MORE_TEST_CASES_MESSAGE = "There are no more test cases";
 	
 	/**
 	 * Validation data variables configuration

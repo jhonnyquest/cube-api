@@ -61,7 +61,9 @@ public class OBContext {
 
 	@Override
 	public String toString() {
-		return "OBContext [initData=" + initData + ", cube=" + Arrays.toString(cube) + ", remainingTestCases="
-				+ remainingTestCases + ", remainingCommands=" + remainingCommands + "]";
+		return "OBContext [initData=" + initData + ", "
+				+ "cube=" + Arrays.toString(cube) + ", "
+				+ "remainingTestCases=" + remainingTestCases + ", "
+				+ "remainingCommands=" + remainingCommands + "]";
 	}
 }

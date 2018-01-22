@@ -66,7 +66,9 @@ public class CubeUnitTests {
     	testCube.setCommands(AppConfig.TEST_COMMANDS);
     	testCube.setDimension(AppConfig.TEST_DIMENSION);
     	testCube.setTestCases(AppConfig.TEST_TEST_CASES);
-    	SimpleResponse result = cubeManagerImpl.createCubeRequest(testCube, AppConfig.TEST_USER_CONTEXT);
+    	SimpleResponse result = cubeManagerImpl.createCubeRequest(
+    			testCube, 
+    			AppConfig.TEST_USER_CONTEXT);
         assertEquals(true, result.isSuccess());
         assertEquals(AppConfig.WRITE_CONTENT_SUCCESS_MESSAGE, result.getMessage());
     }
@@ -82,7 +84,9 @@ public class CubeUnitTests {
     	testCoordinate.setY(AppConfig.TEST_COORDINATE_Y);
     	testCoordinate.setZ(AppConfig.TEST_COORDINATE_Z);
     	testCoordinate.setValue(AppConfig.TEST_VALUE);
-    	UpdateResponse result = cubeManagerImpl.updateCubeRequest(testCoordinate, AppConfig.TEST_USER_CONTEXT);
+    	UpdateResponse result = cubeManagerImpl.updateCubeRequest(
+    			testCoordinate, 
+    			AppConfig.TEST_USER_CONTEXT);
         assertEquals(true, result.isSuccess());
         assertEquals(AppConfig.WRITE_CONTENT_SUCCESS_MESSAGE, result.getMessage());
         assertEquals(AppConfig.TEST_COMMANDS - 1, result.getRemainingCommands());
@@ -103,7 +107,9 @@ public class CubeUnitTests {
     	testQuery.setZ1(AppConfig.TEST_DIMENSION - 1);
     	testQuery.setZ2(AppConfig.TEST_DIMENSION);
     	
-    	QueryResponse result = cubeManagerImpl.queryCubeRequest(testQuery, AppConfig.TEST_USER_CONTEXT);
+    	QueryResponse result = cubeManagerImpl.queryCubeRequest(
+    			testQuery, 
+    			AppConfig.TEST_USER_CONTEXT);
         
     	assertEquals(true, result.isSuccess());
         assertEquals(AppConfig.QUERY_SUCCESS_MESSAGE, result.getMessage());

@@ -55,7 +55,9 @@ public class UpdateResponse {
 
 	@Override
 	public String toString() {
-		return "UpdateResponse [success=" + success + ", message=" + message + ", remainingCommands="
-				+ remainingCommands + ", remainingTestCases=" + remainingTestCases + "]";
+		return "UpdateResponse [success=" + success + ", "
+				+ "message=" + message + ", "
+				+ "remainingCommands=" + remainingCommands + ", "
+				+ "remainingTestCases=" + remainingTestCases + "]";
 	}
 }
