@@ -13,7 +13,7 @@ import ve.jmunoz.cube.models.QueryRequest;
 import ve.jmunoz.cube.models.SimpleResponse;
 import ve.jmunoz.cube.models.UpdateResponse;
 import ve.jmunoz.cube.services.CubeManager;
-import ve.jmunoz.cube.utils.Config;
+import ve.jmunoz.cube.utils.AppConfig;
 import ve.jmunoz.cube.utils.PersistHelper;
 import ve.jmunoz.cube.utils.TransformationHelper;
 
@@ -41,8 +41,11 @@ import ve.jmunoz.cube.utils.TransformationHelper;
 @Component
 public class CubeManagerImpl implements CubeManager{
 	
-	Config config;
+	AppConfig config;
 
+	public CubeManagerImpl(){
+		
+	}
 	/**
 	 * <h2>Test application dispatcher - test</h2> Process test responses
 	 * 
@@ -90,11 +93,11 @@ public class CubeManagerImpl implements CubeManager{
 						TransformationHelper.getJsonOfObject(context).getBytes()
 				);
 				response.setSuccess(true);
-				response.setMessage(Config.WRITE_CONTENT_SUCCESS_MESSAGE);
+				response.setMessage(AppConfig.WRITE_CONTENT_SUCCESS_MESSAGE);
 			}else
 				return testCasesValidated;
 		} catch (IOException e) {
-			throw new ExceptionHandler(Config.WRITE_CONTENT_EXCEPTION_MESSAGE);
+			throw new ExceptionHandler(AppConfig.WRITE_CONTENT_EXCEPTION_MESSAGE);
 		}
 		
 		return response;
@@ -133,7 +136,7 @@ public class CubeManagerImpl implements CubeManager{
 		 *  - Create a new context and persist it.
 		 */
 				PersistHelper.createContext(token);
-				float[][][] cube = new float
+				double[][][] cube = new double
 						[newCube.getDimension()]
 						[newCube.getDimension()]
 						[newCube.getDimension()];
@@ -151,12 +154,12 @@ public class CubeManagerImpl implements CubeManager{
 		 * - Prepare and return successful response
 		 */
 				response.setSuccess(true);
-				response.setMessage(Config.WRITE_CONTENT_SUCCESS_MESSAGE);
+				response.setMessage(AppConfig.WRITE_CONTENT_SUCCESS_MESSAGE);
 				return response;
 			}else
 				return cubeValidated;
 		} catch (IOException e) {
-			throw new ExceptionHandler(Config.WRITE_CONTENT_EXCEPTION_MESSAGE);
+			throw new ExceptionHandler(AppConfig.WRITE_CONTENT_EXCEPTION_MESSAGE);
 		}
 	}
 	
@@ -183,7 +186,7 @@ public class CubeManagerImpl implements CubeManager{
 		/**
 		 * - Initialize operation variable cube to store cube matrix data
 		 */
-		float[][][] cube = new float
+		double[][][] cube = new double
 				[context.getInitData().getDimension()]
 				[context.getInitData().getDimension()]
 				[context.getInitData().getDimension()];
@@ -238,21 +241,21 @@ public class CubeManagerImpl implements CubeManager{
 							TransformationHelper.getJsonOfObject(context).getBytes()
 					);
 				} catch (IOException e) {
-					throw new ExceptionHandler(Config.WRITE_CONTENT_EXCEPTION_MESSAGE);
+					throw new ExceptionHandler(AppConfig.WRITE_CONTENT_EXCEPTION_MESSAGE);
 				}
 		
 		/**
 		 * - Prepare successful response
 		 */
 				response.setSuccess(true);
-				response.setMessage(Config.WRITE_CONTENT_SUCCESS_MESSAGE);
+				response.setMessage(AppConfig.WRITE_CONTENT_SUCCESS_MESSAGE);
 				response.setRemainingCommands(context.getRemainingCommands());
 				response.setRemainingTestCases(context.getRemainingTestCases());
 			}else
-				response.setMessage(Config.OUT_RANGE_COORDINATE_MESSAGE);
+				response.setMessage(AppConfig.OUT_RANGE_COORDINATE_MESSAGE);
 			
 		}else
-			response.setMessage(Config.NO_MORE_TEST_CASES_MESSAGE);
+			response.setMessage(AppConfig.NO_MORE_TEST_CASES_MESSAGE);
 		
 		return response;
 	}
@@ -276,7 +279,7 @@ public class CubeManagerImpl implements CubeManager{
 		 */
 		QueryResponse response = new QueryResponse();
 		OBContext context = getContext(token);
-		float[][][] cube = context.getCube();
+		double[][][] cube = context.getCube();
 		
 		/**
 		 * - If there are no more commands then reinitialize commands and reduce test cases
@@ -298,7 +301,7 @@ public class CubeManagerImpl implements CubeManager{
 		/**
 		 * - Calculate cube summation between pair of coordinates given.
 		 */
-				float sum = 0;
+				double sum = 0;
 				int i, j, k;
 				for(i = queryRequest.getX1()-1 ; i <= queryRequest.getX2()-1 ; i++){
 					for(j = queryRequest.getY1()-1 ; j <= queryRequest.getY2()-1 ; j++){
@@ -323,20 +326,20 @@ public class CubeManagerImpl implements CubeManager{
 							TransformationHelper.getJsonOfObject(context).getBytes()
 					);
 				} catch (IOException e) {
-					throw new ExceptionHandler(Config.WRITE_CONTENT_EXCEPTION_MESSAGE);
+					throw new ExceptionHandler(AppConfig.WRITE_CONTENT_EXCEPTION_MESSAGE);
 				}
 				
 		/**
 		 * - Prepare and return query response 
 		 */
 				response.setSuccess(true);
-				response.setMessage(Config.QUERY_SUCCESS_MESSAGE);
+				response.setMessage(AppConfig.QUERY_SUCCESS_MESSAGE);
 				response.setResult(sum);
 				response.setRemainingCommands(context.getRemainingCommands());
 				response.setRemainingTestCases(context.getRemainingTestCases());
 			}
 		}else
-			response.setMessage(Config.NO_MORE_TEST_CASES_MESSAGE);
+			response.setMessage(AppConfig.NO_MORE_TEST_CASES_MESSAGE);
 		
 		return response;
 	}
@@ -356,10 +359,10 @@ public class CubeManagerImpl implements CubeManager{
 		 * - Populate message to return initial cube data validation response. 
 		 */
 		String message = "";
-		message += (Config.MIN_COMMANDS_VALUE <= cube.getCommands() && cube.getCommands() <= Config.MAX_COMMANDS_VALUE) 
-				? "" : Config.OUT_RANGE_COMMANDS_MESSAGE;
-		message += (Config.MIN_DIMENSION_VALUE <= cube.getDimension() && cube.getDimension() <= Config.MAX_DIMENSION_VALUE) 
-				? "" : Config.OUT_RANGE_DIMENSION_MESSAGE;
+		message += (AppConfig.MIN_COMMANDS_VALUE <= cube.getCommands() && cube.getCommands() <= AppConfig.MAX_COMMANDS_VALUE) 
+				? "" : AppConfig.OUT_RANGE_COMMANDS_MESSAGE;
+		message += (AppConfig.MIN_DIMENSION_VALUE <= cube.getDimension() && cube.getDimension() <= AppConfig.MAX_DIMENSION_VALUE) 
+				? "" : AppConfig.OUT_RANGE_DIMENSION_MESSAGE;
 		
 		/**
 		 * - Prepare and return initial cube data validation response
@@ -386,8 +389,8 @@ public class CubeManagerImpl implements CubeManager{
 		 * - Populate message to return test cases validation response. 
 		 */
 		String message = "";
-		message += (Config.MIN_TEST_CASES_VALUE <= testCases && testCases <= Config.MAX_TEST_CASES_VALUE) 
-				? "" : Config.OUT_RANGE_TEST_CASES_MESSAGE;
+		message += (AppConfig.MIN_TEST_CASES_VALUE <= testCases && testCases <= AppConfig.MAX_TEST_CASES_VALUE) 
+				? "" : AppConfig.OUT_RANGE_TEST_CASES_MESSAGE;
 		
 		/**
 		 * - Prepare and return test cases validation response
@@ -415,11 +418,11 @@ public class CubeManagerImpl implements CubeManager{
 		 *   are given starting in 1 but arrays manage ranges starting in 0. 
 		 */
 		String message = "";
-		message += ( Config.MIN_CUBE_VALUE <= coordinate.getValue() && coordinate.getValue() <= Config.MAX_CUBE_VALUE) 
-				? "" : Config.OUT_RANGE_VALUE_MESSAGE;
+		message += ( AppConfig.MIN_CUBE_VALUE <= coordinate.getValue() && coordinate.getValue() <= AppConfig.MAX_CUBE_VALUE) 
+				? "" : AppConfig.OUT_RANGE_VALUE_MESSAGE;
 		message += (coordinate.getX()  > dimension || coordinate.getY() > dimension || coordinate.getZ() > dimension
 				|| coordinate.getX() <= 0 || coordinate.getY() <= 0 || coordinate.getX() <= 0) 
-				? Config.OUT_RANGE_COORDINATE_MESSAGE : "";
+				? AppConfig.OUT_RANGE_COORDINATE_MESSAGE : "";
 		
 		/**
 		 * - Prepare and return initial cube data validation response
@@ -451,7 +454,7 @@ public class CubeManagerImpl implements CubeManager{
 			context = TransformationHelper.getObjectOfJson(content);
 			return context;
 		} catch (IOException e) {
-			throw new ExceptionHandler(Config.GET_CONTENT_EXCEPTION_MESSAGE);
+			throw new ExceptionHandler(AppConfig.GET_CONTENT_EXCEPTION_MESSAGE);
 		}
 	}
 	
@@ -474,10 +477,10 @@ public class CubeManagerImpl implements CubeManager{
 			SimpleResponse response = new SimpleResponse();
 			PersistHelper.deleteContent(token);
 			response.setSuccess(true);
-			response.setMessage(Config.DELETE_SUCCESS_MESSAGE);
+			response.setMessage(AppConfig.DELETE_SUCCESS_MESSAGE);
 			return response;
 		} catch (IOException e) {
-			throw new ExceptionHandler(Config.DELETE_EXCEPTION_MESSAGE);
+			throw new ExceptionHandler(AppConfig.DELETE_EXCEPTION_MESSAGE);
 		}
 	}
 }

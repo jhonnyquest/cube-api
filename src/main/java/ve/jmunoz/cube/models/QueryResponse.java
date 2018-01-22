@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class QueryResponse {
 	
 	private boolean success;
-	private float result;
+	private double result;
 	private String message;
 	private int remainingCommands;
 	private int remainingTestCases;
@@ -32,11 +32,11 @@ public class QueryResponse {
 	}
 
 	@JsonProperty("result")
-	public float getResult() {
+	public double getResult() {
 		return result;
 	}
 
-	public void setResult(float result) {
+	public void setResult(double result) {
 		this.result = result;
 	}
 

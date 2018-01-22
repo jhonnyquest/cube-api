@@ -26,7 +26,7 @@ public class PersistHelper {
 	 * @author jmunoz
 	 */
 	public static boolean createContext(String token) throws IOException {
-		File file = new File(Config.STORAGE_BASE_PATH + token + ".json");
+		File file = new File(AppConfig.STORAGE_BASE_PATH + token + ".json");
 		file.getParentFile().mkdirs(); 
 		file.createNewFile();
 		return true;
@@ -41,7 +41,7 @@ public class PersistHelper {
 	 * @author jmunoz
 	 */
 	public static String getContent(String token) throws IOException {
-		Path pathFile = FileSystems.getDefault().getPath(Config.STORAGE_BASE_PATH + token + ".json");
+		Path pathFile = FileSystems.getDefault().getPath(AppConfig.STORAGE_BASE_PATH + token + ".json");
 		byte[] resp = Files.readAllBytes(pathFile);
 		return (resp != null) ? new String(resp) : "";
 	}
@@ -57,7 +57,7 @@ public class PersistHelper {
 	 * @author jmunoz
 	 */
 	public static boolean writeContent(String token, byte[] content) throws IOException {
-		Path pathFile = FileSystems.getDefault().getPath(Config.STORAGE_BASE_PATH + token + ".json");
+		Path pathFile = FileSystems.getDefault().getPath(AppConfig.STORAGE_BASE_PATH + token + ".json");
 		Files.write(pathFile, content);
 		return true;
 	}
@@ -73,7 +73,7 @@ public class PersistHelper {
 	 * @author jmunoz
 	 */
 	public static boolean deleteContent(String token) throws IOException {
-		Path pathFile = FileSystems.getDefault().getPath(Config.STORAGE_BASE_PATH + token + ".json");
+		Path pathFile = FileSystems.getDefault().getPath(AppConfig.STORAGE_BASE_PATH + token + ".json");
 		Files.delete(pathFile);
 		return true;
 	}

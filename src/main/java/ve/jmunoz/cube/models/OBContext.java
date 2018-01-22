@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class OBContext {
 	
 	private CubeRequest initData;
-	private float[][][] cube;
+	private double[][][] cube;
 	private int remainingTestCases;
 	private int remainingCommands;
 	
@@ -33,11 +33,11 @@ public class OBContext {
 	}
 
 	@JsonProperty("cube")
-	public float[][][] getCube() {
+	public double[][][] getCube() {
 		return cube;
 	}
 
-	public void setCube(float[][][] cube) {
+	public void setCube(double[][][] cube) {
 		this.cube = cube;
 	}
 
