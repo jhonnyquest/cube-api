@@ -15,7 +15,7 @@ public class OBCoordinate {
 	private int x;
 	private int y;
 	private int z;
-	private float value;
+	private double value;
 	
 	public OBCoordinate() {
 		super();
@@ -49,12 +49,12 @@ public class OBCoordinate {
 	}
 	
 	@JsonProperty("value")
-	public float getValue() {
+	public double getValue() {
 		return value;
 	}
 	
-	public void setValue(int value) {
-		this.value = value;
+	public void setValue(double testValue) {
+		this.value = testValue;
 	}
 
 	@Override
