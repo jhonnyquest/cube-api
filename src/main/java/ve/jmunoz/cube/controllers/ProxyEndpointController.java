@@ -2,8 +2,8 @@ package ve.jmunoz.cube.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,14 +22,14 @@ import ve.jmunoz.cube.utils.TransformationHelper;
  * descriptor and API version, The following are the resources/verbs exposed in the cube 
  * summation API:<br>
  * <ul>
- * <li>/cube (POST)</li>
- * <li>/cube (DELETE)</li>
- * <li>/cube/update (POST)</li>
- * <li>/cube/test_case (POST)</li>
- * <li>/cube/query (POST)</li>
+ * <li>/cube/{user_token} (POST)</li>
+ * <li>/cube/{user_token} (DELETE)</li>
+ * <li>/cube/{user_token}/update (POST)</li>
+ * <li>/cube/{user_token}/test_case (POST)</li>
+ * <li>/cube/{user_token}/query (POST)</li>
  * </ul>
  * <br>
- * Note that is mandatory to give a valid user token to each header request in order to 
+ * Note that is mandatory to give a valid user token to each request in order to 
  * manage the user context persistence.
  * 
  * @author jmunoz
@@ -66,10 +66,10 @@ public class ProxyEndpointController {
 	 * @since 2018-01-18
 	 * @author jmunoz
 	 */
-	@RequestMapping(value = "/cube", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/cube/{user_token}", method = RequestMethod.POST, produces = "application/json")
 	public String createCube(
 			@RequestBody CubeRequest newCube, 
-			@RequestHeader(required = true, value="user_token") String token){
+			@PathVariable(name="user_token") String token){
 		return TransformationHelper.getJsonOfObject(cubeManager.createCubeRequest(newCube, token));
 	}
 	
@@ -81,8 +81,8 @@ public class ProxyEndpointController {
 	 * @since 2018-01-18
 	 * @author jmunoz
 	 */
-	@RequestMapping(value = "/cube", method = RequestMethod.DELETE, produces = "application/json")
-	public String deleteCube(@RequestHeader(required = true, value="user_token") String token){
+	@RequestMapping(value = "/cube/{user_token}", method = RequestMethod.DELETE, produces = "application/json")
+	public String deleteCube(@PathVariable(name="user_token") String token){
 		return TransformationHelper.getJsonOfObject(cubeManager.deleteCubeRequest(token));
 	}
 	
@@ -96,10 +96,10 @@ public class ProxyEndpointController {
 	 * @since 2018-01-18
 	 * @author jmunoz
 	 */
-	@RequestMapping(value = "/cube/update", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/cube/{user_token}/update", method = RequestMethod.POST, produces = "application/json")
 	public String updateCube(
 			@RequestBody OBCoordinate coordinate, 
-			@RequestHeader(required = true, value="user_token") String token){
+			@PathVariable(name="user_token") String token){
 		return TransformationHelper.getJsonOfObject(cubeManager.updateCubeRequest(coordinate, token));
 	}
 	
@@ -113,12 +113,16 @@ public class ProxyEndpointController {
 	 * @since 2018-01-18
 	 * @author jmunoz
 	 */
-	@RequestMapping(value = "/cube/test_cases", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/cube/{user_token}/test_cases", method = RequestMethod.POST, produces = "application/json")
 	public String setTestCases(
-			@RequestBody ModelMap message, 
-			@RequestHeader(required = true, value="user_token") String token){
+			@RequestBody ModelMap message,
+			@PathVariable(name="user_token") String token){
 		return TransformationHelper.getJsonOfObject(
-				cubeManager.setTestCasesRequest(Integer.parseInt(message.get("test_cases").toString()), token));
+				cubeManager.setTestCasesRequest(
+						Integer.parseInt(message.get("test_cases").toString()), 
+						token
+				)
+		);
 	}
 	
 	/**
@@ -131,10 +135,10 @@ public class ProxyEndpointController {
 	 * @since 2018-01-18
 	 * @author jmunoz
 	 */
-	@RequestMapping(value = "/cube/query", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/cube/{user_token}/query", method = RequestMethod.POST, produces = "application/json")
 	public String queryCube(
 			@RequestBody QueryRequest queryRequest, 
-			@RequestHeader(required = true, value="user_token") String token){
+			@PathVariable(name="user_token") String token){
 		return TransformationHelper.getJsonOfObject(cubeManager.queryCubeRequest(queryRequest, token));
 	}
 }
