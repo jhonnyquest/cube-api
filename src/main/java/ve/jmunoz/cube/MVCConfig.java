@@ -1,10 +1,16 @@
 package ve.jmunoz.cube;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.JstlView;
 
 /**
  * <h1>Class MVCConfig</h1><br>
@@ -31,5 +37,20 @@ public class MVCConfig extends WebMvcConfigurerAdapter {
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		super.configureDefaultServletHandling(configurer);
 		configurer.enable();
+	}
+	
+	@Override
+	public void addViewControllers(ViewControllerRegistry registry) {
+		super.addViewControllers(registry);
+		registry.addViewController("/").setViewName("home") ;
+		registry.addViewController("").setViewName("home") ;
+	}
+	
+	@Bean
+	public ViewResolver viewResolver() {
+		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+		viewResolver.setSuffix(".html");
+		viewResolver.setViewClass(JstlView.class);
+		return viewResolver;
 	}
 }
